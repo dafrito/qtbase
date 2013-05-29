@@ -23,6 +23,7 @@ demos/*/*[.]app
 config.tests/*/*/*
 !config.tests/*/*/*[.]*
 config.tests/*/*/*[.]app
+config.tests/*/*/*[.]exe
 
 callgrind.out.*
 pcviewer.cfg
