@@ -74,14 +74,29 @@ sub normalizePath {
     }
 }
 
+# Make sure we use Windows line endings for chomp and friends on Windows.
+if ($^O eq "msys") {
+    $INPUT_RECORD_SEPARATOR = "\r\n";
+
+    do {
+        no strict 'refs';
+        no warnings 'redefine';
+
+        my @cwdsubs = qw(cwd getcwd fastcwd fastgetcwd);
+
+        my $caller = caller;
+        for (@cwdsubs) {
+            *{'Cwd::'.$_} = \&Cwd::_NT_cwd;
+            *{$_} = \&Cwd::_NT_cwd if defined &{$_};
+        }
+    }
+}
+
 # set output basedir to be where ever syncqt is run from
 our $out_basedir = getcwd();
 normalizePath(\$out_basedir);
 our $basedir;
 our $quoted_basedir;
-
-# Make sure we use Windows line endings for chomp and friends on Windows.
-$INPUT_RECORD_SEPARATOR = "\r\n" if ($^O eq "msys");
 
 # will be defined based on the modules sync.profile
 our (%modules, %moduleheaders, @allmoduleheadersprivate, %classnames, %explicitheaders, %deprecatedheaders);
