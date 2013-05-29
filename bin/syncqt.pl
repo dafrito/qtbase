@@ -321,7 +321,7 @@ sub make_path {
     my ($dir, $lib, $be_verbose) = @_;
     unless(-e $dir) {
         mkpath $dir;
-        $dir = "<outbase>" . substr($dir, length($out_basedir)) if ($be_verbose < 3);
+        $dir = "<outbase>" . File::Spec->abs2rel($dir, $out_basedir) if ($be_verbose < 3);
         print "$lib: mkpath $dir\n" if ($be_verbose > 1);
     }
 }
