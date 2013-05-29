@@ -2582,6 +2582,9 @@ if [ -z "$PLATFORM" ]; then
      QNX:*)
         PLATFORM=unsupported/qnx-g++
         ;;
+     MINGW32_NT*:*)
+        PLATFORM=win32-g++
+        ;;
      *)
         if [ "$OPT_HELP" != "yes" ]; then
             echo >&2
