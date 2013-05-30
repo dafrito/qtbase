@@ -168,6 +168,8 @@ contains(QT_CONFIG, freetype) {
         DEFINES += FT_CONFIG_OPTION_SYSTEM_ZLIB
    }
 } else:contains(QT_CONFIG, system-freetype) {
+    QMAKE_CXXFLAGS += $$QMAKE_CFLAGS_FONTCONFIG
+    QMAKE_LIBS += $$QMAKE_LIBS_FONTCONFIG
     include($$QT_SOURCE_TREE/src/platformsupport/fontdatabases/basic/basic.pri)
     HEADERS += \
                qwindowsfontdatabase_ft.h
